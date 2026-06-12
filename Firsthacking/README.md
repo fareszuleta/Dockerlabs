@@ -23,7 +23,7 @@ El script automatiza los siguientes pasos:
    - Espera el banner de VSFTPD 2.3.4
 
 2. ✅ **Activación del backdoor**
-   - Envía comando `USER hackerman:)` (el `:)` activa el backdoor)
+   - Envía comando `USER hi:)` (el `:)` activa el backdoor)
    - Envía una contraseña dummy
    - Cierra la conexión Telnet
 
