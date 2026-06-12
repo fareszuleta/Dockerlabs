@@ -1,4 +1,4 @@
-# 🦔 Hedgehog
+# Hedgehog
 
 ## 📋 Información de la Máquina
 
@@ -33,5 +33,3 @@ Acceso Root Obtenido ✅
 ```
 
 ---
-
-**Estado:** ✅ Completada | **Fecha:** 2026-06-12
