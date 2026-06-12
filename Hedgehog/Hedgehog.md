@@ -14,10 +14,9 @@ técnicas:
   - Fuerza bruta SSH
   - Abuso de sudo lateral (tails → sonic → root)
 fecha: 2026-06-12
-estado: "✅ Completada"
 ---
 
-# 🦔 Máquina: Hedgehog
+# Máquina: Hedgehog
 
 > [!info] Información general
 >
