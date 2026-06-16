@@ -19,13 +19,13 @@ estado: "✅ Completada"
 
 # 🖥️ Máquina: ClientBypass (BunkerLabs)
 
-> [!info] Información general
->
-> - **Plataforma:** BunkerLabs
-> - **Dificultad:** Muy fácil
-> - **Stack:** Uvicorn / FastAPI
-> - **IP objetivo:** `172.17.0.2`
-> - **Técnicas:** Enumeración de endpoints · Bypass de autenticación de doble factor (MFA) manipulando la respuesta del servidor
+## Información general
+
+- **Plataforma:** BunkerLabs
+- **Dificultad:** Muy fácil
+- **Stack:** Uvicorn / FastAPI
+- **IP objetivo:** `172.17.0.2`
+- **Técnicas:** Enumeración de endpoints · Bypass de autenticación de doble factor (MFA) manipulando la respuesta del servidor
 
 ---
 
@@ -51,7 +51,7 @@ ping 172.17.0.2
 64 bytes from 172.17.0.2: icmp_seq=2 ttl=64 time=0.059 ms
 ```
 
-> [!tip] TTL = 64 → Sistema Linux confirmado
+**TTL = 64 → Sistema Linux confirmado**
 
 ---
 
@@ -67,7 +67,7 @@ nmap -p- -sS -sSV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
 |---|---|---|---|
 |8000/tcp|open|HTTP|Uvicorn|
 
-> [!note] Uvicorn es un servidor ASGI usado comúnmente para correr aplicaciones **FastAPI** en Python. Esto sugiere que la app tendrá rutas de API documentadas (`/docs`, `/redoc`).
+**Nota:** Uvicorn es un servidor ASGI usado comúnmente para correr aplicaciones **FastAPI** en Python. Esto sugiere que la app tendrá rutas de API documentadas (`/docs`, `/redoc`).
 
 ---
 
@@ -86,7 +86,7 @@ location: /login
 
 La raíz redirige automáticamente a una página de login que muestra credenciales de demostración directamente en la interfaz: **`admin / password123`**.
 
-> [!warning] Esto ya es un fallo de configuración grave: exponer credenciales de acceso en producción.
+**Advertencia:** Esto ya es un fallo de configuración grave: exponer credenciales de acceso en producción.
 
 ---
 
@@ -107,7 +107,7 @@ ffuf -w ~/Desktop/Lists/SecLists/Discovery/Web-Content/DirBuster-2007_directory-
 |`/redoc`|200|Documentación alternativa de la API|
 |`/mfa`|200|Verificación de doble factor|
 
-> [!note] `/docs` y `/redoc` confirman que la app está construida con FastAPI, expuesta sin restricciones.
+**Nota:** `/docs` y `/redoc` confirman que la app está construida con FastAPI, expuesta sin restricciones.
 
 ---
 
@@ -121,7 +121,7 @@ Usando las credenciales mostradas en la propia interfaz (`admin / password123`),
 Security Flag: OHGDS8FOG8
 ```
 
-> [!success] Acceso al dashboard logrado simplemente usando las credenciales de demo expuestas en el login y saltando a /dashboard.
+**Acceso al dashboard logrado** simplemente usando las credenciales de demo expuestas en el login y saltando a /dashboard.
 
 ---
 
@@ -140,7 +140,7 @@ content-type: application/json
 {"success":false,"message":"Invalid MFA code"}
 ```
 
-> [!danger] La validación del código MFA ocurre **del lado del cliente**, basándose en el campo `success` de la respuesta JSON. El servidor responde con `200 OK` incluso cuando el código es incorrecto, dejando la decisión de "pasar" o "no pasar" completamente en manos del frontend.
+**Crítico:** La validación del código MFA ocurre **del lado del cliente**, basándose en el campo `success` de la respuesta JSON. El servidor responde con `200 OK` incluso cuando el código es incorrecto, dejando la decisión de "pasar" o "no pasar" completamente en manos del frontend.
 
 ---
 
@@ -155,7 +155,7 @@ content-type: application/json
 {"success":true,"message":"Invalid MFA code"}
 ```
 
-> [!success] El frontend interpreta `success: true` y redirige al `/dashboard`, otorgando acceso completo a pesar de que el código MFA introducido era incorrecto.
+**El frontend interpreta `success: true` y redirige al `/dashboard`,** otorgando acceso completo a pesar de que el código MFA introducido era incorrecto.
 
 ```
 Security Flag: OHGDS8FOG8
@@ -177,11 +177,11 @@ Security Flag: OHGDS8FOG8
 
 ## 🔍 Lecciones aprendidas
 
-> [!danger] Malas prácticas identificadas
->
-> - **Credenciales de demo expuestas** en producción/práctica directamente en el HTML.
-> - **MFA validado del lado del cliente** — el servidor nunca debe confiar en el frontend para decidir si el código es correcto; la sesión solo debe otorgarse tras una verificación server-side.
-> - **Respuesta HTTP 200 para códigos inválidos** — debería devolver un código de error (401/403) que el cliente no pueda manipular para alterar el flujo de autenticación.
+**Malas prácticas identificadas:**
+
+- **Credenciales de demo expuestas** en producción/práctica directamente en el HTML.
+- **MFA validado del lado del cliente** — el servidor nunca debe confiar en el frontend para decidir si el código es correcto; la sesión solo debe otorgarse tras una verificación server-side.
+- **Respuesta HTTP 200 para códigos inválidos** — debería devolver un código de error (401/403) que el cliente no pueda manipular para alterar el flujo de autenticación.
 
 ---
 

