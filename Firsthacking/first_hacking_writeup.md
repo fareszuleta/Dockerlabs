@@ -1,17 +1,20 @@
 ---
-
 tags:
-
-- CTF
-- writeup
-- dockerlabs
-- linux
-- ftp
-- cve dificultad: "⭐ Muy fácil" sistema: Unix ip: "172.17.0.2" técnicas:
-- Enumeración de servicios
-- Explotación de CVE conocido
-- VSFTPD 2.3.4 Backdoor CVE: "CVE-2011-2523" fecha: 2026-06-12 estado: "✅ Completada"
-
+  - CTF
+  - writeup
+  - dockerlabs
+  - linux
+  - ftp
+dificultad: "⭐ Muy fácil"
+sistema: "Unix"
+ip: "172.17.0.2"
+técnicas:
+  - Enumeración de servicios
+  - Explotación de CVE conocido
+  - VSFTPD 2.3.4 Backdoor
+cve: "CVE-2011-2523"
+fecha: "2026-06-12"
+estado: "✅ Completada"
 ---
 
 # 🖥️ Máquina: FirstHacking
@@ -22,7 +25,7 @@ tags:
 > - **Dificultad:** Muy fácil
 > - **SO:** Unix
 > - **IP objetivo:** `172.17.0.2`
-> - **CVE:** [CVE-2011-2523](https://github.com/topics/cve-2011-2523)
+> - **CVE:** [CVE-2011-2523](https://nvd.nist.gov/vuln/detail/CVE-2011-2523)
 > - **Técnicas:** Enumeración de versiones · Explotación de backdoor en VSFTPD 2.3.4
 
 ---
@@ -61,11 +64,11 @@ sudo nmap -p- -sS -sV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
 
 **Resultado:**
 
-|Puerto|Estado|Servicio|Versión|
-|---|---|---|---|
-|21/tcp|open|FTP|**vsftpd 2.3.4**|
+| Puerto | Estado | Servicio | Versión |
+|--------|--------|----------|---------|
+| 21/tcp | open   | FTP      | **vsftpd 2.3.4** |
 
-> [!danger] La versión **vsftpd 2.3.4** tiene una backdoor conocida catalogada como **CVE-2011-2523**. Cualquier usuario que se autentique con `:)` al final del nombre activa una shell en el puerto **6200**.
+> [!danger] La versión **vsftpd 2.3.4** tiene una backdoor conocida catalogada como **CVE-2011-2523**. Cualquier usuario que se autentique con `:)` al final del nombre activa una shell en el puerto 6200.
 
 ---
 
@@ -73,7 +76,8 @@ sudo nmap -p- -sS -sV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
 
 Buscando `ftp vsftpd 2.3.4 exploit github` encontramos que esta versión fue comprometida en su cadena de distribución oficial en 2011. El backdoor funciona así:
 
-> [!note] Mecanismo del backdoor Cuando el campo `USER` contiene una cadena terminada en `:)` (carita feliz), el servidor abre una **command shell como root** en el puerto **6200**, accesible sin autenticación adicional.
+> [!note] **Mecanismo del backdoor**
+> Cuando el campo `USER` contiene una cadena terminada en `:)` (carita feliz), el servidor abre una **command shell como root** en el puerto **6200**, accesible sin autenticación adicional.
 
 ---
 
@@ -114,7 +118,7 @@ PORT     STATE SERVICE
 6200/tcp open  lm-x
 ```
 
-> [!success] El puerto **6200** está abierto → el backdoor fue activado correctamente.
+> [!tip] ✅ El puerto **6200** está abierto → el backdoor fue activado correctamente.
 
 ---
 
@@ -136,13 +140,17 @@ whoami
 root
 ```
 
-> [!success] Shell **root** obtenida en el puerto 6200. Sin escalada de privilegios necesaria.
+> [!tip] ✅ Shell **root** obtenida en el puerto 6200. Sin escalada de privilegios necesaria.
 
 ---
 
 ## 4️⃣ Alternativa — Explotación con script
 
-El mismo ataque puede realizarse de forma automatizada usando scripts de Python disponibles en GitHub, o escribiendo uno propio que encadene los pasos anteriores (conexión Telnet → envío de USER/PASS → conexión Netcat al 6200). https://github.com/padsalatushal/CVE-2011-2523/blob/main/exploit.py
+El mismo ataque puede realizarse de forma automatizada usando scripts de Python disponibles en GitHub, o escribiendo uno propio que encadene los pasos anteriores:
+- Conexión FTP
+- Envío de USER con `:)`
+- Conexión al puerto 6200
+- Ejecución de comandos
 
 > [!tip] Buscar en GitHub: `vsftpd 2.3.4 exploit python` para encontrar implementaciones listas para usar.
 
@@ -150,14 +158,14 @@ El mismo ataque puede realizarse de forma automatizada usando scripts de Python 
 
 ## ✅ Resumen
 
-|Campo|Valor|
-|---|---|
-|Servicio|FTP — vsftpd 2.3.4|
-|CVE|CVE-2011-2523|
-|Vector|Backdoor en campo USER (`:)`)|
-|Puerto shell|6200/tcp|
-|Acceso|root directo, sin escalada|
-|Herramientas|telnet · nmap · netcat|
+| Campo | Valor |
+|-------|-------|
+| Servicio | FTP — vsftpd 2.3.4 |
+| CVE | CVE-2011-2523 |
+| Vector | Backdoor en campo USER (`:)`) |
+| Puerto shell | 6200/tcp |
+| Acceso | root directo, sin escalada |
+| Herramientas | telnet · nmap · netcat |
 
 ---
 
