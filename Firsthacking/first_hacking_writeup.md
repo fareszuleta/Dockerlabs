@@ -19,14 +19,12 @@ estado: "✅ Completada"
 
 # 🖥️ Máquina: FirstHacking
 
-> [!info] Información general
-> 
-> - **Plataforma:** DockerLabs
-> - **Dificultad:** Muy fácil
-> - **SO:** Unix
-> - **IP objetivo:** `172.17.0.2`
-> - **CVE:** [CVE-2011-2523](https://nvd.nist.gov/vuln/detail/CVE-2011-2523)
-> - **Técnicas:** Enumeración de versiones · Explotación de backdoor en VSFTPD 2.3.4
+**Plataforma:** DockerLabs  
+**Dificultad:** Muy fácil  
+**SO:** Unix  
+**IP objetivo:** 172.17.0.2  
+**CVE:** [CVE-2011-2523](https://nvd.nist.gov/vuln/detail/CVE-2011-2523)  
+**Técnicas:** Enumeración de versiones · Explotación de backdoor en VSFTPD 2.3.4
 
 ---
 
@@ -52,7 +50,7 @@ ping 172.17.0.2
 2 packets transmitted, 2 received, 0% packet loss
 ```
 
-> [!tip] TTL = 64 → Sistema Linux/Unix confirmado
+**TTL = 64 → Sistema Linux/Unix confirmado**
 
 ---
 
@@ -68,16 +66,16 @@ sudo nmap -p- -sS -sV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
 |--------|--------|----------|---------|
 | 21/tcp | open   | FTP      | **vsftpd 2.3.4** |
 
-> [!danger] La versión **vsftpd 2.3.4** tiene una backdoor conocida catalogada como **CVE-2011-2523**. Cualquier usuario que se autentique con `:)` al final del nombre activa una shell en el puerto 6200.
+La versión **vsftpd 2.3.4** tiene una backdoor conocida catalogada como **CVE-2011-2523**. Cualquier usuario que se autentique con `:)` al final del nombre activa una shell en el puerto 6200.
 
 ---
 
 ## 2️⃣ Investigación — CVE-2011-2523
 
-Buscando `ftp vsftpd 2.3.4 exploit github` encontramos que esta versión fue comprometida en su cadena de distribución oficial en 2011. El backdoor funciona así:
+Buscando `ftp vsftpd 2.3.4 exploit github` encontramos que esta versión fue comprometida en su cadena de distribución oficial en 2011.
 
-> [!note] **Mecanismo del backdoor**
-> Cuando el campo `USER` contiene una cadena terminada en `:)` (carita feliz), el servidor abre una **command shell como root** en el puerto **6200**, accesible sin autenticación adicional.
+**Mecanismo del backdoor:**  
+Cuando el campo `USER` contiene una cadena terminada en `:)` (carita feliz), el servidor abre una **command shell como root** en el puerto **6200**, accesible sin autenticación adicional.
 
 ---
 
@@ -101,7 +99,7 @@ USER hi:)
 PASS hi
 ```
 
-> [!note] El usuario puede ser cualquier cadena, lo importante es que termine en `:)`. La contraseña también puede ser cualquier cosa.
+El usuario puede ser cualquier cadena, lo importante es que termine en `:)`. La contraseña también puede ser cualquier cosa.
 
 ---
 
@@ -118,7 +116,7 @@ PORT     STATE SERVICE
 6200/tcp open  lm-x
 ```
 
-> [!tip] ✅ El puerto **6200** está abierto → el backdoor fue activado correctamente.
+✅ El puerto **6200** está abierto → el backdoor fue activado correctamente.
 
 ---
 
@@ -140,7 +138,7 @@ whoami
 root
 ```
 
-> [!tip] ✅ Shell **root** obtenida en el puerto 6200. Sin escalada de privilegios necesaria.
+✅ Shell **root** obtenida en el puerto 6200. Sin escalada de privilegios necesaria.
 
 ---
 
@@ -152,7 +150,7 @@ El mismo ataque puede realizarse de forma automatizada usando scripts de Python 
 - Conexión al puerto 6200
 - Ejecución de comandos
 
-> [!tip] Buscar en GitHub: `vsftpd 2.3.4 exploit python` para encontrar implementaciones listas para usar.
+Buscar en GitHub: `vsftpd 2.3.4 exploit python` para encontrar implementaciones listas para usar.
 
 ---
 
