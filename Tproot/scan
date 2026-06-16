@@ -1,0 +1,19 @@
+# Nmap 7.99 scan initiated Tue Jun 16 13:17:10 2026 as: nmap -p- -sS -sC -sV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
+Nmap scan report for 172.17.0.2
+Host is up, received arp-response (0.000010s latency).
+Scanned at 2026-06-16 13:17:10 CST for 8s
+Not shown: 65533 closed tcp ports (reset)
+PORT   STATE SERVICE REASON         VERSION
+21/tcp open  ftp     syn-ack ttl 64 vsftpd 2.3.4
+|_ftp-anon: got code 500 "OOPS: cannot change directory:/var/ftp".
+80/tcp open  http    syn-ack ttl 64 Apache httpd 2.4.58 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.58 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+MAC Address: 92:9C:93:8A:9C:F7 (Unknown)
+Service Info: OS: Unix
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Jun 16 13:17:18 2026 -- 1 IP address (1 host up) scanned in 8.69 seconds
