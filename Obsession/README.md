@@ -32,5 +32,4 @@ Nmap → FTP anón (chat-gonza.txt + pendientes.txt) → curl HTML (comentario u
 ## Referencias
 
 - [GTFOBins — vim](https://gtfobins.github.io/gtfobins/vim/)
-- [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [DockerLabs](https://dockerlabs.es/)
