@@ -6,7 +6,7 @@
 **CVE:** [CVE-2011-2523](https://github.com/topics/cve-2011-2523)  
 **Técnicas:** Enumeración de versiones · Explotación de backdoor en VSFTPD 2.3.4
 
-> Esta máquina comparte la misma vulnerabilidad que **Firsthacking**. El exploit `CVE-2011-2523.py` fue adaptado específicamente para esta vulnerabilidad.
+> Esta máquina comparte la misma vulnerabilidad que **Firsthacking**. El exploit `CVE-2011-2523.py` fue adaptado específicamente para esta maquina.
 
 ---
 
