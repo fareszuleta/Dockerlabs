@@ -20,10 +20,11 @@ Nmap (solo SSH) → Hydra (root:estrella) → SSH → root directo
 
 ## Archivos
 
-| Archivo          | Descripción               |
-|------------------|---------------------------|
-| `BreakMySSH.md`  | Writeup completo          |
-| `scan`           | Resultado del escaneo Nmap|
+| Archivo          | Descripción                |
+|------------------|----------------------------|
+| `BreakMySSH.md`  | Writeup completo           |
+| `scan`           | Resultado del escaneo Nmap |
+| `hydra.txt`      | Resultado del escaneo Hydra|
 
 ## Referencias
 
