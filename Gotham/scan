@@ -1,0 +1,25 @@
+# Nmap 7.99 scan initiated Tue Jun 16 15:00:22 2026 as: nmap -p- -sS -sC -sV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
+Nmap scan report for 172.17.0.2
+Host is up, received arp-response (0.000010s latency).
+Scanned at 2026-06-16 15:00:22 CST for 9s
+Not shown: 65533 closed tcp ports (reset)
+PORT   STATE SERVICE REASON         VERSION
+22/tcp open  ssh     syn-ack ttl 64 OpenSSH 8.9p1 Ubuntu 3ubuntu0.15 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 25:49:23:35:30:24:22:4c:a5:18:e6:58:da:3f:0d:b9 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAXmnAibLezF/DGxdhA+R0hmaohaobTVJDHacBlH2PvcYdzK3aCtxettN/+Ec9n+6BnI1v7uxmvfypgc2aXMsRI=
+|   256 a2:af:b8:3e:fa:41:7d:b5:43:80:03:3e:2c:4c:1c:25 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJQaz5nP1jjemNtvNV377EVkVfS4L6PG14vdGey/488v
+80/tcp open  http    syn-ack ttl 64 Apache httpd 2.4.52 ((Ubuntu))
+| http-robots.txt: 2 disallowed entries 
+|_/dashboard.php /admin.php
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.52 (Ubuntu)
+|_http-title: Gotham City Network
+MAC Address: 5A:49:25:56:D9:58 (Unknown)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Jun 16 15:00:31 2026 -- 1 IP address (1 host up) scanned in 8.30 seconds

