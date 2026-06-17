@@ -25,8 +25,9 @@ Nmap → ffuf (secret.php → usuario mario) → Hydra (mario:chocolate)
 
 | Archivo | Descripción |
 |---------|-------------|
-| `Trust_github.md` | Writeup completo |
+| `Trust.md` | Writeup completo |
 | `scan` | Resultado del escaneo Nmap |
+| `Trust.txt` | Resultado del escaneo Hydra |
 
 ## Referencias
 
