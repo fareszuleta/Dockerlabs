@@ -1,0 +1,23 @@
+# Nmap 7.99 scan initiated Wed Jun 17 08:50:24 2026 as: nmap -p- -sS -sC -sV --min-rate 5000 -n -vvv -Pn -oN scan 172.17.0.2
+Nmap scan report for 172.17.0.2
+Host is up, received arp-response (0.000010s latency).
+Scanned at 2026-06-17 08:50:25 CST for 8s
+Not shown: 65533 closed tcp ports (reset)
+PORT   STATE SERVICE REASON         VERSION
+22/tcp open  ssh     syn-ack ttl 64 OpenSSH 8.9p1 Ubuntu 3ubuntu0.15 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 84:aa:fd:4d:67:65:79:a1:a9:5a:76:55:04:5a:21:b5 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNE15y6AzK59oSVj4kOQv32j2Owv38lbIOSMe0qeQ5W/2FfQkb05xAms0hr+ChRX2mkrGHJO/AKfm5cwXYilwZs=
+|   256 67:bb:74:40:28:18:94:00:0c:bf:fc:08:17:b1:61:8b (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIApwmawWBH1ZXmE9swEz0hwaP5TmbCdSBsStQYTAaIGv
+80/tcp open  http    syn-ack ttl 64 Apache httpd 2.4.52 ((Ubuntu))
+|_http-title: NaturGas Solutions - Dashboard Corporativo
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.52 (Ubuntu)
+MAC Address: 9A:B2:D5:1F:88:23 (Unknown)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Jun 17 08:50:33 2026 -- 1 IP address (1 host up) scanned in 8.99 seconds
