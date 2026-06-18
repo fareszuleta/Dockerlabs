@@ -28,7 +28,7 @@ ffuf → /bills/ → SQLi → SQLMap (admin:admin123) → login admin
 |------------|---------------------------|
 | `Duque.md` | Writeup completo          |
 | `scan`     | Resultado del escaneo Nmap|
-| `ffufscan` | Resultado del fuzzing web |
+
 
 ## Referencias
 
