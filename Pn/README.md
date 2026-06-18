@@ -28,6 +28,8 @@ FTP anónimo (tomcat.txt) → Tomcat Manager (tomcat:s3cr3t)
 |----------|----------------------------|
 | `Pn.md`  | Writeup completo           |
 | `scan`   | Resultado del escaneo Nmap |
+| `tomcat.txt`   | Contenido del archivo dentro del protocolo |
+| `shell.war`   | Archivo WAR malicioso |
 
 ## Referencias
 
