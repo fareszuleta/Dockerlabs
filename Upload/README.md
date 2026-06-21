@@ -28,6 +28,7 @@ Upload page → ffuf (/uploads) → PHP reverse shell upload
 |----------------|--------------------------|
 | `Upload.md`    | Writeup completo         |
 | `scan`         | Resultado del escaneo Nmap |
+| `hi.php`         | archivo malicioso |
 
 ## Referencias
 
