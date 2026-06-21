@@ -1,7 +1,7 @@
 # Upload — DockerLabs
 
 ![DockerLabs](https://img.shields.io/badge/Plataforma-DockerLabs-blue)
-![Dificultad]([https://img.shields.io/badge/Dificultad-F%C3%A1cil-brightgreen])
+![Dificultad](https://img.shields.io/badge/Dificultad-F%C3%A1cil-brightgreen)
 ![SO](https://img.shields.io/badge/SO-Ubuntu%20Linux-orange)
 ![Estado](https://img.shields.io/badge/Estado-Completada-success)
 
